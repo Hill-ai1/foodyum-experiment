@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-CN"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;FoodYum Supermarket&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/babel-standalone@7.22.10/babel.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Compiled Tailwind CSS styles */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bg-gray-100 { background-color: #f3f4f6; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.flex { display: flex; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.items-center { align-items: center; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.justify-center { justify-content: center; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.min-h-screen { min-height: 100vh; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.w-full { width: 100%; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.max-w-4xl { max-width: 1024px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.p-6 { padding: 1.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bg-white { background-color: #ffffff; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.p-8 { padding: 2rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.rounded-lg { border-radius: 0.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.text-center { text-align: center; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.text-2xl { font-size: 1.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.font-bold { font-weight: 700; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.mb-6 { margin-bottom: 1.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.fade-in { opacity: 0; animation: fadeIn 1s forwards; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeIn { to { opacity: 1; } }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.text-lg { font-size: 1.125rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.mb-4 { margin-bottom: 1rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.mt-4 { margin-top: 1rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.px-4 { padding-left: 1rem; padding-right: 1rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bg-blue-500 { background-color: #3b82f6; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.text-white { color: #ffffff; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.rounded { border-radius: 0.25rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.hover\:bg-blue-600:hover { background-color: #2563eb; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.grid { display: grid; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.md\:grid-cols-5 { @media (min-width: 768px) { grid-template-columns: repeat(5, minmax(0, 1fr)); } }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.gap-4 { gap: 1rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.product-card { transition: transform 0.2s; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.product-card:hover { transform: scale(1.05); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.bg-gray-50 { background-color: #f9fafb; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.cursor-pointer { cursor: pointer; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.selected { border: 2px solid #3b82f6; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.w-full { width: 100%; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.h-32 { height: 8rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.object-cover { object-fit: cover; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.mb-2 { margin-bottom: 0.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.font-semibold { font-weight: 600; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.mx-auto { margin-left: auto; margin-right: auto; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.block { display: block; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.disabled\:opacity-50:disabled { opacity: 0.5; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.space-x-4 { --tw-space-x-reverse: 0; margin-right: calc(1rem * var(--tw-space-x-reverse)); margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse))); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.flex-1 { flex: 1 1 0%; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.border { border-width: 1px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.text-sm { font-size: 0.875rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.text-gray-500 { color: #6b7280; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.mt-1 { margin-top: 0.25rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.mt-8 { margin-top: 2rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.text-xl { font-size: 1.25rem; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="bg-gray-100 flex items-center justify-center min-h-screen"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="root" class="w-full max-w-4xl p-6"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/babel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const { useState, useEffect } = React;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const App = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [stage, setStage] = useState('stimulus');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [selectedStimulus, setSelectedStimulus] = useState(null);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [stimulusDisplayed, setStimulusDisplayed] = useState(false);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [selectedProducts, setSelectedProducts] = useState([]);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [surveyResponses, setSurveyResponses] = useState({</p>
+<p class="p1"><span class="Apple-converted-space">                </span>q1: [5, 5], q2: [5, 5], q3: [5, 5], q4: [5, 5], q5: [5, 5]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [collectedData, setCollectedData] = useState({});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [participantId] = useState(Math.random().toString(36).substr(2, 9));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [completionCode] = useState(Math.random().toString(36).substr(2, 6).toUpperCase());</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const stimuli = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 1, text: "Did you know? FoodYum Supermarkets now offers a rewards program that encourages environmentally-friendly shopping. For every plant-based or low-carbon item you add to your cart, you will receive one entry into a raffle for Amazon gift cards. The more eco-friendly choices you make, the more chances you have to win." },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 2, text: "Did you know? Many consumers report feeling guilty or ashamed after purchasing high-carbon-emission foods. At FoodYum Supermarkets, we encourage you to reflect on your decisions: Are you making environmentally responsible choices? Are you shopping like a good citizen?" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 3, text: "Did you know? Environmentally-friendly shopping isn’t just about products—it reflects your personal commitment to society and the planet. If you agree with the value of environmentally-friendly living, please let your choices listen to your values. Your shopping behavior at FoodYum Supermarkets is an extension of your good citizenship." }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const products = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 1, name: "Pork Burgers", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Pork+Burgers" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 2, name: "Bread", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Bread" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 3, name: "Fried Chicken", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Fried+Chicken" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 4, name: "Sausage Pizza", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Sausage+Pizza" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 5, name: "Fried Beef", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Fried+Beef" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 6, name: "Vegan Salad", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Vegan+Salad" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 7, name: "Veggie Burger", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Veggie+Burger" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 8, name: "Mock Meat", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Mock+Meat" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 9, name: "Apple Pie", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Apple+Pie" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 10, name: "Ham Sandwich", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Ham+Sandwich" }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const questions = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'q1', text: "In any community I might live in: It would be more important for me to", options: ["Get from the community", "Give to the community"] },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'q2', text: "In any community I might live in: It would be more important for me to", options: ["Help others", "Watch out for my own good"] },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'q3', text: "In any community I might live in: I would be more concerned about", options: ["What I received from the community", "What I contributed to the community"] },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'q4', text: "In any community I might live in: The hard work I would do should", options: ["Benefit the community", "Benefit me"] },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'q5', text: "In any community I might live in: My personal philosophy in dealing with the community would be", options: ["If I don’t look out for myself, nobody else will", "It’s better for me to give than to receive"] }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (stage === 'stimulus' &amp;&amp; !selectedStimulus) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const randomIndex = Math.floor(Math.random() * stimuli.length);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setSelectedStimulus(stimuli[randomIndex]);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (stage === 'stimulus' &amp;&amp; selectedStimulus &amp;&amp; !stimulusDisplayed) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const timer = setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>setStimulusDisplayed(true);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}, 5000);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return () =&gt; clearTimeout(timer);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, [selectedStimulus, stimulusDisplayed, stage]);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const handleProductSelect = (productId) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (selectedProducts.includes(productId)) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setSelectedProducts(selectedProducts.filter(id =&gt; id !== productId));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (selectedProducts.length &lt; 8) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setSelectedProducts([...selectedProducts, productId]);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>alert("最多只能選擇 8 種商品！");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const handleSurveyChange = (questionId, optionIndex, value) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const newResponses = { ...surveyResponses };</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const otherIndex = optionIndex === 0 ? 1 : 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const newValue = Math.max(0, Math.min(10, parseInt(value) || 0));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const otherValue = 10 - newValue;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>newResponses[questionId][optionIndex] = newValue;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>newResponses[questionId][otherIndex] = otherValue;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>setSurveyResponses(newResponses);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const handleSubmit = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const data = {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>participantId: participantId,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>stimulus: selectedStimulus ? `Stimulus ${selectedStimulus.id}` : '',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>selectedProducts: selectedProducts.map(id =&gt; products.find(p =&gt; p.id === id).name),</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>surveyResponses: surveyResponses</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p1"><span class="Apple-converted-space">                </span>setCollectedData(data);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.log("實驗數據：", data);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// 生成 CSV</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const csvRows = [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>["Participant ID", "Stimulus", "Selected Products", ...questions.map(q =&gt; q.options[0]), ...questions.map(q =&gt; q.options[1])],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>[</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>participantId,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>data.stimulus,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>`"${data.selectedProducts.join(", ")}"`,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>...questions.map(q =&gt; data.surveyResponses[q.id][0]),</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>...questions.map(q =&gt; data.surveyResponses[q.id][1])</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const csvContent = csvRows.map(row =&gt; row.join(",")).join("\n");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const blob = new Blob([csvContent], { type: "text/csv" });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const url = URL.createObjectURL(blob);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const a = document.createElement("a");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>a.href = url;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>a.download = `participant_${participantId}.csv`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>a.click();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>URL.revokeObjectURL(url);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>alert(`數據已提交！您的完成碼是：${completionCode}\n請記錄此代碼並返回 Prolific。CSV 文件已下載，同時請查看控制台以獲取詳細數據。`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="bg-white p-8 rounded-lg shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{stage === 'stimulus' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h1 className="text-2xl font-bold mb-6"&gt;FoodYum Supermarket 實驗&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{selectedStimulus &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p className="fade-in text-lg mb-4" style={{ animationDelay: '0.5s' }}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>{selectedStimulus.text}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{stimulusDisplayed &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>onClick={() =&gt; setStage('shopping')}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>進入購物環節</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{stage === 'shopping' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h1 className="text-2xl font-bold mb-6 text-center"&gt;選擇商品（最多 8 種）&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="grid grid-cols-2 md:grid-cols-5 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{products.map(product =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>key={product.id}</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>className={`product-card p-4 bg-gray-50 rounded-lg cursor-pointer text-center ${selectedProducts.includes(product.id) ? 'selected' : ''}`}</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>onClick={() =&gt; handleProductSelect(product.id)}</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;img src={product.image} alt={product.name} className="w-full h-32 object-cover mb-2 rounded" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;h3 className="font-semibold"&gt;{product.name}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;p&gt;${product.price}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>className="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-auto block"</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>onClick={() =&gt; setStage('survey')}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>disabled={selectedProducts.length === 0}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>進入問卷環節</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{stage === 'survey' &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h1 className="text-2xl font-bold mb-6 text-center"&gt;問卷調查&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{questions.map((question, index) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div key={question.id} className="mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h3 className="text-lg font-semibold mb-2"&gt;{question.text}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="flex space-x-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>{question.options.map((option, optIndex) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div key={optIndex} className="flex-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;label className="block mb-1"&gt;{option}&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>min="0"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>max="10"</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>value={surveyResponses[question.id][optIndex]}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>onChange={(e) =&gt; handleSurveyChange(question.id, optIndex, e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>className="w-full p-2 border rounded"</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-sm text-gray-500 mt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>總分：{surveyResponses[question.id][0] + surveyResponses[question.id][1]}/10</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>className="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-auto block"</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>onClick={handleSubmit}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>提交</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{Object.keys(collectedData).length &gt; 0 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="mt-8 p-4 bg-gray-50 rounded"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h2 className="text-xl font-bold mb-4"&gt;收集的數據&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;pre className="text-sm"&gt;{JSON.stringify(collectedData, null, 2)}&lt;/pre&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-lg mt-4"&gt;您的完成碼是：{completionCode}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-sm text-gray-500"&gt;請記錄此代碼並返回 Prolific。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>ReactDOM.render(&lt;App /&gt;, document.getElementById('root'));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
