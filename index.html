@@ -6,7 +6,6 @@
     <title>FoodYum Supermarket</title>
     <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.8/babel.min.js"></script>
     <style>
         /* Compiled Tailwind CSS styles */
         .bg-gray-100 { background-color: #f3f4f6; }
@@ -65,18 +64,21 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div id="root" class="w-full max-w-4xl p-6"></div>
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <script>
+        const { useState, useEffect } = {
+            useState: (initial) => [initial, (newValue) => {}],
+            useEffect: (callback) => callback()
+        };
 
         const App = () => {
-            const [stage, setStage] = useState('stimulus');
-            const [selectedStimulus, setSelectedStimulus] = useState(null);
-            const [stimulusDisplayed, setStimulusDisplayed] = useState(false);
-            const [selectedProducts, setSelectedProducts] = useState([]);
-            const [surveyResponses, setSurveyResponses] = useState({
+            const [stage] = useState('stimulus');
+            const [selectedStimulus] = useState(null);
+            const [stimulusDisplayed] = useState(false);
+            const [selectedProducts] = useState([]);
+            const [surveyResponses] = useState({
                 q1: [5, 5], q2: [5, 5], q3: [5, 5], q4: [5, 5], q5: [5, 5]
             });
-            const [collectedData, setCollectedData] = useState({});
+            const [collectedData] = useState({});
             const [participantId] = useState(Math.random().toString(36).substr(2, 9));
             const [completionCode] = useState(Math.random().toString(36).substr(2, 6).toUpperCase());
 
@@ -110,164 +112,20 @@
             useEffect(() => {
                 if (stage === 'stimulus' && !selectedStimulus) {
                     const randomIndex = Math.floor(Math.random() * stimuli.length);
-                    setSelectedStimulus(stimuli[randomIndex]);
+                    // setSelectedStimulus(stimuli[randomIndex]); // 暫時移除
                 }
-                if (stage === 'stimulus' && selectedStimulus && !stimulusDisplayed) {
-                    const timer = setTimeout(() => {
-                        setStimulusDisplayed(true);
-                    }, 5000);
-                    return () => clearTimeout(timer);
-                }
-            }, [selectedStimulus, stimulusDisplayed, stage]);
+                // 暫時移除 setTimeout 邏輯
+            }, []);
 
-            const handleProductSelect = (productId) => {
-                if (selectedProducts.includes(productId)) {
-                    setSelectedProducts(selectedProducts.filter(id => id !== productId));
-                } else if (selectedProducts.length < 8) {
-                    setSelectedProducts([...selectedProducts, productId]);
-                } else {
-                    alert("最多只能選擇 8 種商品！");
-                }
-            };
-
-            const handleSurveyChange = (questionId, optionIndex, value) => {
-                const newResponses = { ...surveyResponses };
-                const otherIndex = optionIndex === 0 ? 1 : 0;
-                const newValue = Math.max(0, Math.min(10, parseInt(value) || 0));
-                const otherValue = 10 - newValue;
-                newResponses[questionId][optionIndex] = newValue;
-                newResponses[questionId][otherIndex] = otherValue;
-                setSurveyResponses(newResponses);
-            };
-
-            const handleSubmit = () => {
-                const data = {
-                    participantId: participantId,
-                    stimulus: selectedStimulus ? `Stimulus ${selectedStimulus.id}` : '',
-                    selectedProducts: selectedProducts.map(id => products.find(p => p.id === id).name),
-                    surveyResponses: surveyResponses
-                };
-                setCollectedData(data);
-                console.log("實驗數據：", data);
-
-                // 生成 CSV
-                const csvRows = [
-                    ["Participant ID", "Stimulus", "Selected Products", ...questions.map(q => q.options[0]), ...questions.map(q => q.options[1])],
-                    [
-                        participantId,
-                        data.stimulus,
-                        `"${data.selectedProducts.join(", ")}"`,
-                        ...questions.map(q => data.surveyResponses[q.id][0]),
-                        ...questions.map(q => data.surveyResponses[q.id][1])
-                    ]
-                ];
-                const csvContent = csvRows.map(row => row.join(",")).join("\n");
-                const blob = new Blob([csvContent], { type: "text/csv" });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = `participant_${participantId}.csv`;
-                a.click();
-                URL.revokeObjectURL(url);
-
-                alert(`數據已提交！您的完成碼是：${completionCode}\n請記錄此代碼並返回 Prolific。CSV 文件已下載，同時請查看控制台以獲取詳細數據。`);
-            };
-
-            return (
-                <div className="bg-white p-8 rounded-lg shadow-lg">
-                    {stage === 'stimulus' && (
-                        <div className="text-center">
-                            <h1 className="text-2xl font-bold mb-6">FoodYum Supermarket 實驗</h1>
-                            {selectedStimulus && (
-                                <p className="fade-in text-lg mb-4" style={{ animationDelay: '0.5s' }}>
-                                    {selectedStimulus.text}
-                                </p>
-                            )}
-                            {stimulusDisplayed && (
-                                <button
-                                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                                    onClick={() => setStage('shopping')}
-                                >
-                                    進入購物環節
-                                </button>
-                            )}
-                        </div>
-                    )}
-
-                    {stage === 'shopping' && (
-                        <div>
-                            <h1 className="text-2xl font-bold mb-6 text-center">選擇商品（最多 8 種）</h1>
-                            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                                {products.map(product => (
-                                    <div
-                                        key={product.id}
-                                        className={`product-card p-4 bg-gray-50 rounded-lg cursor-pointer text-center ${selectedProducts.includes(product.id) ? 'selected' : ''}`}
-                                        onClick={() => handleProductSelect(product.id)}
-                                    >
-                                        <img src={product.image} alt={product.name} className="w-full h-32 object-cover mb-2 rounded" />
-                                        <h3 className="font-semibold">{product.name}</h3>
-                                        <p>${product.price}</p>
-                                    </div>
-                                ))}
-                            </div>
-                            <button
-                                className="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-auto block"
-                                onClick={() => setStage('survey')}
-                                disabled={selectedProducts.length === 0}
-                            >
-                                進入問卷環節
-                            </button>
-                        </div>
-                    )}
-
-                    {stage === 'survey' && (
-                        <div>
-                            <h1 className="text-2xl font-bold mb-6 text-center">問卷調查</h1>
-                            {questions.map((question, index) => (
-                                <div key={question.id} className="mb-6">
-                                    <h3 className="text-lg font-semibold mb-2">{question.text}</h3>
-                                    <div className="flex space-x-4">
-                                        {question.options.map((option, optIndex) => (
-                                            <div key={optIndex} className="flex-1">
-                                                <label className="block mb-1">{option}</label>
-                                                <input
-                                                    type="number"
-                                                    min="0"
-                                                    max="10"
-                                                    value={surveyResponses[question.id][optIndex]}
-                                                    onChange={(e) => handleSurveyChange(question.id, optIndex, e.target.value)}
-                                                    className="w-full p-2 border rounded"
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <p className="text-sm text-gray-500 mt-1">
-                                        總分：{surveyResponses[question.id][0] + surveyResponses[question.id][1]}/10
-                                    </p>
-                                </div>
-                            ))}
-                            <button
-                                className="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-auto block"
-                                onClick={handleSubmit}
-                            >
-                                提交
-                            </button>
-                        </div>
-                    )}
-
-                    {Object.keys(collectedData).length > 0 && (
-                        <div className="mt-8 p-4 bg-gray-50 rounded">
-                            <h2 className="text-xl font-bold mb-4">收集的數據</h2>
-                            <pre className="text-sm">{JSON.stringify(collectedData, null, 2)}</pre>
-                            <p className="text-lg mt-4">您的完成碼是：{completionCode}</p>
-                            <p className="text-sm text-gray-500">請記錄此代碼並返回 Prolific。</p>
-                        </div>
-                    )}
+            document.getElementById('root').innerHTML = `
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                    <h1 class="text-2xl font-bold mb-6">FoodYum Supermarket 實驗</h1>
+                    <p class="text-lg mb-4">${selectedStimulus ? selectedStimulus.text : 'Loading...'}</p>
                 </div>
-            );
+            `;
         };
 
-        ReactDOM.render(<App />, document.getElementById('root'));
+        App();
     </script>
 </body>
 </html>
