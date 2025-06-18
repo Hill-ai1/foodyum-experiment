@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodYum Supermarket</title>
-    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
     <style>
         /* Compiled Tailwind CSS styles */
         .bg-gray-100 { background-color: #f3f4f6; }
@@ -24,8 +22,6 @@
         .text-2xl { font-size: 1.5rem; }
         .font-bold { font-weight: 700; }
         .mb-6 { margin-bottom: 1.5rem; }
-        .fade-in { opacity: 0; animation: fadeIn 1s forwards; }
-        @keyframes fadeIn { to { opacity: 1; } }
         .text-lg { font-size: 1.125rem; }
         .mb-4 { margin-bottom: 1rem; }
         .mt-4 { margin-top: 1rem; }
@@ -51,7 +47,6 @@
         .font-semibold { font-weight: 600; }
         .mx-auto { margin-left: auto; margin-right: auto; }
         .block { display: block; }
-        .disabled\:opacity-50:disabled { opacity: 0.5; }
         .space-x-4 { --tw-space-x-reverse: 0; margin-right: calc(1rem * var(--tw-space-x-reverse)); margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse))); }
         .flex-1 { flex: 1 1 0%; }
         .border { border-width: 1px; }
@@ -60,72 +55,228 @@
         .mt-1 { margin-top: 0.25rem; }
         .mt-8 { margin-top: 2rem; }
         .text-xl { font-size: 1.25rem; }
+        .fade-in { opacity: 0; animation: fadeIn 0.5s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div id="root" class="w-full max-w-4xl p-6"></div>
+
     <script>
-        const { useState, useEffect } = {
-            useState: (initial) => [initial, (newValue) => {}],
-            useEffect: (callback) => callback()
-        };
+        // 模擬 useState 和 useEffect
+        function useState(initialValue) {
+            let value = initialValue;
+            function setValue(newValue) {
+                value = newValue;
+                render();
+            }
+            return [value, setValue];
+        }
 
-        const App = () => {
-            const [stage] = useState('stimulus');
-            const [selectedStimulus] = useState(null);
-            const [stimulusDisplayed] = useState(false);
-            const [selectedProducts] = useState([]);
-            const [surveyResponses] = useState({
+        function useEffect(callback) {
+            callback();
+        }
+
+        // 狀態管理
+        let state = {
+            stage: 'stimulus',
+            selectedStimulus: null,
+            stimulusDisplayed: false,
+            selectedProducts: [],
+            surveyResponses: {
                 q1: [5, 5], q2: [5, 5], q3: [5, 5], q4: [5, 5], q5: [5, 5]
-            });
-            const [collectedData] = useState({});
-            const [participantId] = useState(Math.random().toString(36).substr(2, 9));
-            const [completionCode] = useState(Math.random().toString(36).substr(2, 6).toUpperCase());
-
-            const stimuli = [
-                { id: 1, text: "Did you know? FoodYum Supermarkets now offers a rewards program that encourages environmentally-friendly shopping. For every plant-based or low-carbon item you add to your cart, you will receive one entry into a raffle for Amazon gift cards. The more eco-friendly choices you make, the more chances you have to win." },
-                { id: 2, text: "Did you know? Many consumers report feeling guilty or ashamed after purchasing high-carbon-emission foods. At FoodYum Supermarkets, we encourage you to reflect on your decisions: Are you making environmentally responsible choices? Are you shopping like a good citizen?" },
-                { id: 3, text: "Did you know? Environmentally-friendly shopping isn’t just about products—it reflects your personal commitment to society and the planet. If you agree with the value of environmentally-friendly living, please let your choices listen to your values. Your shopping behavior at FoodYum Supermarkets is an extension of your good citizenship." }
-            ];
-
-            const products = [
-                { id: 1, name: "Pork Burgers", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Pork+Burgers" },
-                { id: 2, name: "Bread", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Bread" },
-                { id: 3, name: "Fried Chicken", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Fried+Chicken" },
-                { id: 4, name: "Sausage Pizza", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Sausage+Pizza" },
-                { id: 5, name: "Fried Beef", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Fried+Beef" },
-                { id: 6, name: "Vegan Salad", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Vegan+Salad" },
-                { id: 7, name: "Veggie Burger", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Veggie+Burger" },
-                { id: 8, name: "Mock Meat", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Mock+Meat" },
-                { id: 9, name: "Apple Pie", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Apple+Pie" },
-                { id: 10, name: "Ham Sandwich", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Ham+Sandwich" }
-            ];
-
-            const questions = [
-                { id: 'q1', text: "In any community I might live in: It would be more important for me to", options: ["Get from the community", "Give to the community"] },
-                { id: 'q2', text: "In any community I might live in: It would be more important for me to", options: ["Help others", "Watch out for my own good"] },
-                { id: 'q3', text: "In any community I might live in: I would be more concerned about", options: ["What I received from the community", "What I contributed to the community"] },
-                { id: 'q4', text: "In any community I might live in: The hard work I would do should", options: ["Benefit the community", "Benefit me"] },
-                { id: 'q5', text: "In any community I might live in: My personal philosophy in dealing with the community would be", options: ["If I don’t look out for myself, nobody else will", "It’s better for me to give than to receive"] }
-            ];
-
-            useEffect(() => {
-                if (stage === 'stimulus' && !selectedStimulus) {
-                    const randomIndex = Math.floor(Math.random() * stimuli.length);
-                    // setSelectedStimulus(stimuli[randomIndex]); // 暫時移除
-                }
-                // 暫時移除 setTimeout 邏輯
-            }, []);
-
-            document.getElementById('root').innerHTML = `
-                <div class="bg-white p-8 rounded-lg shadow-lg text-center">
-                    <h1 class="text-2xl font-bold mb-6">FoodYum Supermarket 實驗</h1>
-                    <p class="text-lg mb-4">${selectedStimulus ? selectedStimulus.text : 'Loading...'}</p>
-                </div>
-            `;
+            },
+            collectedData: {},
+            participantId: Math.random().toString(36).substr(2, 9),
+            completionCode: Math.random().toString(36).substr(2, 6).toUpperCase(),
+            currentSentenceIndex: 0
         };
 
-        App();
+        const stimuli = [
+            { id: 1, text: "Did you know? FoodYum Supermarkets now offers a rewards program that encourages environmentally-friendly shopping. For every plant-based or low-carbon item you add to your cart, you will receive one entry into a raffle for Amazon gift cards. The more eco-friendly choices you make, the more chances you have to win." },
+            { id: 2, text: "Did you know? Many consumers report feeling guilty or ashamed after purchasing high-carbon-emission foods. At FoodYum Supermarkets, we encourage you to reflect on your decisions: Are you making environmentally responsible choices? Are you shopping like a good citizen?" },
+            { id: 3, text: "Did you know? Environmentally-friendly shopping isn’t just about products—it reflects your personal commitment to society and the planet. If you agree with the value of environmentally-friendly living, please let your choices listen to your values. Your shopping behavior at FoodYum Supermarkets is an extension of your good citizenship." }
+        ];
+
+        const products = [
+            { id: 1, name: "Pork Burgers", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Pork+Burgers" },
+            { id: 2, name: "Bread", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Bread" },
+            { id: 3, name: "Fried Chicken", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Fried+Chicken" },
+            { id: 4, name: "Sausage Pizza", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Sausage+Pizza" },
+            { id: 5, name: "Fried Beef", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Fried+Beef" },
+            { id: 6, name: "Vegan Salad", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Vegan+Salad" },
+            { id: 7, name: "Veggie Burger", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Veggie+Burger" },
+            { id: 8, name: "Mock Meat", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Mock+Meat" },
+            { id: 9, name: "Apple Pie", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Apple+Pie" },
+            { id: 10, name: "Ham Sandwich", price: 10, image: "https://via.placeholder.com/150/FFFFFF/000000?text=Ham+Sandwich" }
+        ];
+
+        const questions = [
+            { id: 'q1', text: "In any community I might live in: It would be more important for me to", options: ["Get from the community", "Give to the community"] },
+            { id: 'q2', text: "In any community I might live in: It would be more important for me to", options: ["Help others", "Watch out for my own good"] },
+            { id: 'q3', text: "In any community I might live in: I would be more concerned about", options: ["What I received from the community", "What I contributed to the community"] },
+            { id: 'q4', text: "In any community I might live in: The hard work I would do should", options: ["Benefit the community", "Benefit me"] },
+            { id: 'q5', text: "In any community I might live in: My personal philosophy in dealing with the community would be", options: ["If I don’t look out for myself, nobody else will", "It’s better for me to give than to receive"] }
+        ];
+
+        function render() {
+            const root = document.getElementById('root');
+            if (!root) return;
+
+            if (state.stage === 'stimulus') {
+                if (!state.selectedStimulus) {
+                    state.selectedStimulus = stimuli[Math.floor(Math.random() * stimuli.length)];
+                }
+                const sentences = state.selectedStimulus.text.split('. ').filter(s => s); // 分句
+                root.innerHTML = `
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                        <h1 class="text-2xl font-bold mb-6">FoodYum Supermarket 實驗</h1>
+                        <div id="stimulus-text" class="text-lg mb-4"></div>
+                        ${state.stimulusDisplayed ? `
+                            <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="state.stage='shopping'; render();">
+                                準備好進入下一步
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+                if (!state.stimulusDisplayed && state.selectedStimulus) {
+                    state.currentSentenceIndex = 0;
+                    const stimulusTextDiv = document.getElementById('stimulus-text');
+                    sentences.forEach((sentence, index) => {
+                        setTimeout(() => {
+                            const p = document.createElement('p');
+                            p.className = 'fade-in';
+                            p.textContent = sentence + (index < sentences.length - 1 ? '.' : '');
+                            p.style.animationDelay = `${index * 3}s`; // 每句間隔 3 秒
+                            stimulusTextDiv.appendChild(p);
+                            if (index === sentences.length - 1) {
+                                setTimeout(() => {
+                                    state.stimulusDisplayed = true;
+                                    render();
+                                }, 3000); // 最後一句後再顯示按鈕，延遲 3 秒
+                            }
+                        }, index * 3000); // 每句間隔 3 秒
+                    });
+                }
+            } else if (state.stage === 'shopping') {
+                root.innerHTML = `
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h1 class="text-2xl font-bold mb-6 text-center">選擇商品（最多 8 種）</h1>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                            ${products.map(product => `
+                                <div class="product-card p-4 bg-gray-50 rounded-lg cursor-pointer text-center ${state.selectedProducts.includes(product.id) ? 'selected' : ''}"
+                                     onclick="handleProductSelect(${product.id});">
+                                    <img src="${product.image}" alt="${product.name}" class="w-full h-32 object-cover mb-2 rounded">
+                                    <h3 class="font-semibold">${product.name}</h3>
+                                    <p>$${product.price}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-auto block ${state.selectedProducts.length === 0 ? 'disabled:opacity-50' : ''}"
+                                onclick="${state.selectedProducts.length > 0 ? "state.stage='survey'; render();" : ''}"
+                                ${state.selectedProducts.length === 0 ? 'disabled' : ''}>
+                            進入問卷環節
+                        </button>
+                    </div>
+                `;
+            } else if (state.stage === 'survey') {
+                root.innerHTML = `
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h1 class="text-2xl font-bold mb-6 text-center">問卷調查</h1>
+                        ${questions.map((q, index) => `
+                            <div class="mb-6">
+                                <h3 class="text-lg font-semibold mb-2">${q.text}</h3>
+                                <div class="flex space-x-4">
+                                    ${q.options.map((option, optIndex) => `
+                                        <div class="flex-1">
+                                            <label class="block mb-1">${option}</label>
+                                            <input type="number" min="0" max="10" value="${state.surveyResponses[q.id][optIndex]}"
+                                                   oninput="handleSurveyChange('${q.id}', ${optIndex}, this.value);"
+                                                   class="w-full p-2 border rounded">
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    總分：${state.surveyResponses[q.id][0] + state.surveyResponses[q.id][1]}/10
+                                </p>
+                            </div>
+                        `).join('')}
+                        <button class="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-auto block"
+                                onclick="handleSubmit();">
+                            提交
+                        </button>
+                    </div>
+                `;
+            } else if (Object.keys(state.collectedData).length > 0) {
+                root.innerHTML = `
+                    <div class="mt-8 p-4 bg-gray-50 rounded">
+                        <h2 class="text-xl font-bold mb-4">收集的數據</h2>
+                        <pre class="text-sm">${JSON.stringify(state.collectedData, null, 2)}</pre>
+                        <p class="text-lg mt-4">您的完成碼是：${state.completionCode}</p>
+                        <p class="text-sm text-gray-500">請記錄此代碼並返回 Prolific。</p>
+                    </div>
+                `;
+            }
+        }
+
+        function handleProductSelect(productId) {
+            if (state.selectedProducts.includes(productId)) {
+                state.selectedProducts = state.selectedProducts.filter(id => id !== productId);
+            } else if (state.selectedProducts.length < 8) {
+                state.selectedProducts = [...state.selectedProducts, productId];
+            } else {
+                alert("最多只能選擇 8 種商品！");
+            }
+            render();
+        }
+
+        function handleSurveyChange(questionId, optionIndex, value) {
+            const newValue = Math.max(0, Math.min(10, parseInt(value) || 0));
+            const otherIndex = optionIndex === 0 ? 1 : 0;
+            const otherValue = 10 - newValue;
+            state.surveyResponses[questionId][optionIndex] = newValue;
+            state.surveyResponses[questionId][otherIndex] = otherValue;
+            render();
+        }
+
+        function handleSubmit() {
+            state.collectedData = {
+                participantId: state.participantId,
+                stimulus: state.selectedStimulus ? `Stimulus ${state.selectedStimulus.id}` : '',
+                selectedProducts: state.selectedProducts.map(id => products.find(p => p.id === id).name),
+                surveyResponses: state.surveyResponses
+            };
+            console.log("實驗數據：", state.collectedData);
+
+            const csvRows = [
+                ["Participant ID", "Stimulus", "Selected Products", ...questions.flatMap(q => q.options)],
+                [
+                    state.participantId,
+                    state.collectedData.stimulus,
+                    `"${state.collectedData.selectedProducts.join(", ")}"`,
+                    ...questions.flatMap(q => state.surveyResponses[q.id])
+                ]
+            ];
+            const csvContent = csvRows.map(row => row.join(",")).join("\n");
+            const blob = new Blob([csvContent], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `participant_${state.participantId}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            alert(`數據已提交！您的完成碼是：${state.completionCode}\n請記錄此代碼並返回 Prolific。CSV 文件已下載，同時請查看控制台以獲取詳細數據。`);
+            render();
+        }
+
+        // 初始渲染
+        useEffect(() => {
+            if (state.stage === 'stimulus' && !state.selectedStimulus) {
+                state.selectedStimulus = stimuli[Math.floor(Math.random() * stimuli.length)];
+            }
+        });
+        render();
     </script>
 </body>
 </html>
