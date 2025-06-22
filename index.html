@@ -57,6 +57,8 @@
         .text-xl { font-size: 1.25rem; }
         .fade-in { opacity: 0; animation: fadeIn 0.5s forwards; }
         @keyframes fadeIn { to { opacity: 1; } }
+        .loading { background: #e5e7eb; display: flex; align-items: center; justify-content: center; }
+        .error { background: #fee2e2; color: #dc2626; }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -99,16 +101,16 @@
         ];
 
         const products = [
-            { id: 1, name: "Pork Burgers", price: 10, image: "https://drive.google.com/uc?export=download&id=1L-CEtsytbTcWuqjpqKoid8qAakrbW8mt" },
-            { id: 2, name: "Bread", price: 10, image: "https://drive.google.com/uc?export=download&id=1juFBz4WZNTUet8UjrqXc7klAU0zoa2cj" },
-            { id: 3, name: "Fried Chicken", price: 10, image: "https://drive.google.com/uc?export=download&id=1BRlNa85DbFvqhaJxBwHV6u_eQPeuEipI" },
-            { id: 4, name: "Sausage Pizza", price: 10, image: "https://drive.google.com/uc?export=download&id=1hk86fkr5B8U18eOkc1CU2ET_sTtYqDqh" },
-            { id: 5, name: "Fried Beef", price: 10, image: "https://drive.google.com/uc?export=download&id=1ChPJXrMacDOaQKTNCdHYI7uTusd6v61a" },
-            { id: 6, name: "Vegan Salad", price: 10, image: "https://drive.google.com/uc?export=download&id=1lA3nFGDgN5kS0T885J8431kTJP5Iskop" },
-            { id: 7, name: "Veggie Burger", price: 10, image: "https://drive.google.com/uc?export=download&id=1Qj1FREPmDFll1Yoz4fdJygW3wYPp9N5X" },
-            { id: 8, name: "Mock Meat", price: 10, image: "https://drive.google.com/uc?export=download&id=1U4KtbH5piEXZdAwT41u9P_GINW0mT-cb" },
-            { id: 9, name: "Apple Pie", price: 10, image: "https://drive.google.com/uc?export=download&id=1mXl-J_BkT2QnX0Dh60RH_DckOM_nGssW" },
-            { id: 10, name: "Ham Sandwich", price: 10, image: "https://drive.google.com/uc?export=download&id=1insPJuMTX8GlOh6S0dhXI1nPRYckS8Yy" }
+            { id: 1, name: "Pork Burgers", price: 10, image: "https://i.imgur.com/Lfx1hQM.png" },
+            { id: 2, name: "Bread", price: 10, image: "https://i.imgur.com/E9marre.png" },
+            { id: 3, name: "Fried Chicken", price: 10, image: "https://i.imgur.com/oJVecO9.png" },
+            { id: 4, name: "Sausage Pizza", price: 10, image: "https://i.imgur.com/hDFgYkm.png" },
+            { id: 5, name: "Fried Beef", price: 10, image: "https://i.imgur.com/SOg58T4.png" },
+            { id: 6, name: "Vegan Salad", price: 10, image: "https://i.imgur.com/hwfHLRb.png" },
+            { id: 7, name: "Veggie Burger", price: 10, image: "https://i.imgur.com/GWMcv4T.png" },
+            { id: 8, name: "Mock Meat", price: 10, image: "https://i.imgur.com/KDetOAF.png" },
+            { id: 9, name: "Apple Pie", price: 10, image: "https://i.imgur.com/FAEwxLT.png" },
+            { id: 10, name: "Ham Sandwich", price: 10, image: "https://i.imgur.com/ZM0QKft.png" }
         ];
 
         const questions = [
@@ -166,7 +168,11 @@
                             ${products.map(product => `
                                 <div class="product-card p-4 bg-gray-50 rounded-lg cursor-pointer text-center ${state.selectedProducts.includes(product.id) ? 'selected' : ''}"
                                      onclick="handleProductSelect(${product.id});">
-                                    <img src="${product.image}" alt="${product.name}" class="w-full h-32 object-cover mb-2 rounded">
+                                    <div class="w-full h-32 loading" id="img-container-${product.id}">
+                                        <img src="${product.image}" alt="${product.name}" class="w-full h-32 object-cover mb-2 rounded hidden" 
+                                             onload="document.getElementById('img-container-${product.id}').classList.remove('loading'); this.classList.remove('hidden');"
+                                             onerror="document.getElementById('img-container-${product.id}').classList.add('error'); this.src='https://via.placeholder.com/150'; this.classList.remove('hidden'); this.onerror=null;">
+                                    </div>
                                     <h3 class="font-semibold">${product.name}</h3>
                                     <p>$${product.price}</p>
                                 </div>
@@ -179,6 +185,15 @@
                         </button>
                     </div>
                 `;
+                // 延遲確保圖片加載
+                setTimeout(() => {
+                    products.forEach(product => {
+                        const img = document.querySelector(`#img-container-${product.id} img`);
+                        if (img && !img.complete) {
+                            img.onerror();
+                        }
+                    });
+                }, 2000); // 2秒延遲
             } else if (state.stage === 'survey') {
                 root.innerHTML = `
                     <div class="bg-white p-8 rounded-lg shadow-lg">
