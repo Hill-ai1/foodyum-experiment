@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodYum Supermarket</title>
     <style>
-        /* Compiled Tailwind CSS styles */
         .bg-gray-100 { background-color: #f3f4f6; }
         .flex { display: flex; }
         .items-center { align-items: center; }
@@ -33,21 +32,20 @@
         .hover\:bg-blue-600:hover { background-color: #2563eb; }
         .grid { display: grid; }
         .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .md\:grid-cols-5 { @media (min-width: 768px) { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+        .md\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
         .gap-4 { gap: 1rem; }
         .product-card { transition: transform 0.2s; }
         .product-card:hover { transform: scale(1.05); }
         .bg-gray-50 { background-color: #f9fafb; }
         .cursor-pointer { cursor: pointer; }
         .selected { border: 2px solid #3b82f6; }
-        .w-full { width: 100%; }
         .h-32 { height: 8rem; }
         .object-cover { object-fit: cover; }
         .mb-2 { margin-bottom: 0.5rem; }
         .font-semibold { font-weight: 600; }
         .mx-auto { margin-left: auto; margin-right: auto; }
         .block { display: block; }
-        .space-x-4 { --tw-space-x-reverse: 0; margin-right: calc(1rem * var(--tw-space-x-reverse)); margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse))); }
+        .space-x-4 { margin-right: 1rem; margin-left: 1rem; }
         .flex-1 { flex: 1 1 0%; }
         .border { border-width: 1px; }
         .text-sm { font-size: 0.875rem; }
@@ -55,17 +53,32 @@
         .mt-1 { margin-top: 0.25rem; }
         .mt-8 { margin-top: 2rem; }
         .text-xl { font-size: 1.25rem; }
-        .fade-in { opacity: 0; animation: fadeIn 0.5s forwards; }
-        @keyframes fadeIn { to { opacity: 1; } }
-        .loading { background: #e5e7eb; display: flex; align-items: center; justify-content: center; }
-        .error { background: #fee2e2; color: #dc2626; }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .loading {
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .error {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        @media (min-width: 768px) {
+            .md\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div id="root" class="w-full max-w-4xl p-6"></div>
 
     <script>
-        // 模擬 useState 和 useEffect
         function useState(initialValue) {
             let value = initialValue;
             function setValue(newValue) {
@@ -79,15 +92,12 @@
             callback();
         }
 
-        // 狀態管理
         let state = {
             stage: 'stimulus',
             selectedStimulus: null,
             stimulusDisplayed: false,
             selectedProducts: [],
-            surveyResponses: {
-                q1: [5, 5], q2: [5, 5], q3: [5, 5], q4: [5, 5], q5: [5, 5]
-            },
+            surveyResponses: { q1: [5, 5], q2: [5, 5], q3: [5, 5], q4: [5, 5], q5: [5, 5] },
             collectedData: {},
             participantId: Math.random().toString(36).substr(2, 9),
             completionCode: Math.random().toString(36).substr(2, 6).toUpperCase(),
@@ -95,9 +105,9 @@
         };
 
         const stimuli = [
-            { id: 1, text: "Did you know? FoodYum Supermarkets now offers a rewards program that encourages environmentally-friendly shopping. For every plant-based or low-carbon item you add to your cart, you will receive one entry into a raffle for Amazon gift cards. The more eco-friendly choices you make, the more chances you have to win." },
-            { id: 2, text: "Did you know? Many consumers report feeling guilty or ashamed after purchasing high-carbon-emission foods. At FoodYum Supermarkets, we encourage you to reflect on your decisions: Are you making environmentally responsible choices? Are you shopping like a good citizen?" },
-            { id: 3, text: "Did you know? Environmentally-friendly shopping isn’t just about products—it reflects your personal commitment to society and the planet. If you agree with the value of environmentally-friendly living, please let your choices listen to your values. Your shopping behavior at FoodYum Supermarkets is an extension of your good citizenship." }
+            { id: 1, text: "Did you know  FoodYum Supermarkets now offers a rewards program that encourages environmentally-friendly shopping  For every plant-based or low-carbon item you add to your cart you will receive one entry into a raffle for Amazon gift cards  The more eco-friendly choices you make the more chances you have to win" },
+            { id: 2, text: "Did you know  Many consumers report feeling guilty or ashamed after purchasing high-carbon-emission foods  At FoodYum Supermarkets we encourage you to reflect on your decisions  Are you making environmentally responsible choices  Are you shopping like a good citizen" },
+            { id: 3, text: "Did you know  Environmentally-friendly shopping isn’t just about products it reflects your personal commitment to society and the planet  If you agree with the value of environmentally-friendly living please let your choices listen to your values  Your shopping behavior at FoodYum Supermarkets is an extension of your good citizenship" }
         ];
 
         const products = [
@@ -123,13 +133,26 @@
 
         function render() {
             const root = document.getElementById('root');
-            if (!root) return;
+            if (!root) {
+                console.error("Root element not found!");
+                return;
+            }
 
             if (state.stage === 'stimulus') {
                 if (!state.selectedStimulus) {
                     state.selectedStimulus = stimuli[Math.floor(Math.random() * stimuli.length)];
                 }
-                const sentences = state.selectedStimulus.text.split('. ').filter(s => s); // 分句
+                const sentences = state.selectedStimulus.text
+                    .replace(/[\u00A0\u1680\u180E\u2000-\u200B\u202F\u205F\u3000]/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .split(/\s{2,}/)
+                    .filter(s => s.trim());
+                console.log("Sentences:", sentences);
+                const root = document.getElementById('root');
+                if (!root) {
+                    console.error("Root element not found!");
+                    return;
+                }
                 root.innerHTML = `
                     <div class="bg-white p-8 rounded-lg shadow-lg text-center">
                         <h1 class="text-2xl font-bold mb-6">FoodYum Supermarket Experiment</h1>
@@ -144,21 +167,32 @@
                 if (!state.stimulusDisplayed && state.selectedStimulus) {
                     state.currentSentenceIndex = 0;
                     const stimulusTextDiv = document.getElementById('stimulus-text');
-                    sentences.forEach((sentence, index) => {
-                        setTimeout(() => {
-                            const p = document.createElement('p');
-                            p.className = 'fade-in';
-                            p.textContent = sentence + (index < sentences.length - 1 ? '.' : '');
-                            p.style.animationDelay = `${index * 3}s`; // 每句間隔 3 秒
-                            stimulusTextDiv.appendChild(p);
-                            if (index === sentences.length - 1) {
-                                setTimeout(() => {
-                                    state.stimulusDisplayed = true;
-                                    render();
-                                }, 3000); // 最後一句後再顯示按鈕，延遲 3 秒
-                            }
-                        }, index * 3000); // 每句間隔 3 秒
-                    });
+                    if (!stimulusTextDiv) {
+                        console.error("stimulusTextDiv not found!");
+                        return;
+                    }
+                    stimulusTextDiv.innerHTML = ''; // 初始化清空
+                    let renderIndex = 0;
+                    function renderNextSentence() {
+                        if (renderIndex < sentences.length) {
+                            setTimeout(() => {
+                                console.log(`Rendering sentence ${renderIndex + 1}: "${sentences[renderIndex]}"`);
+                                const p = document.createElement('p');
+                                p.className = 'fade-in'; // 應用 fade-in 類
+                                p.textContent = sentences[renderIndex].trim();
+                                p.style.animationDelay = `${renderIndex * 2}s`; // 2秒間隔
+                                stimulusTextDiv.appendChild(p);
+                                renderIndex++;
+                                renderNextSentence();
+                            }, renderIndex * 2000);
+                        } else {
+                            setTimeout(() => {
+                                state.stimulusDisplayed = true;
+                                render();
+                            }, (sentences.length * 2000) + 2000);
+                        }
+                    }
+                    renderNextSentence();
                 }
             } else if (state.stage === 'shopping') {
                 root.innerHTML = `
@@ -168,10 +202,11 @@
                             ${products.map(product => `
                                 <div class="product-card p-4 bg-gray-50 rounded-lg cursor-pointer text-center ${state.selectedProducts.includes(product.id) ? 'selected' : ''}"
                                      onclick="handleProductSelect(${product.id});">
-                                    <div class="w-full h-32 loading" id="img-container-${product.id}">
-                                        <img src="${product.image}" alt="${product.name}" class="w-full h-32 object-cover mb-2 rounded hidden" 
-                                             onload="document.getElementById('img-container-${product.id}').classList.remove('loading'); this.classList.remove('hidden');"
-                                             onerror="document.getElementById('img-container-${product.id}').classList.add('error'); this.src='https://via.placeholder.com/150'; this.classList.remove('hidden'); this.onerror=null;">
+                                    <div class="w-full h-32" id="img-container-${product.id}">
+                                        <img src="${product.image}" alt="${product.name}" class="w-full h-32 object-cover mb-2 rounded hidden"
+                                             onload="this.classList.remove('hidden'); document.getElementById('img-container-${product.id}').classList.remove('loading');"
+                                             onerror="this.classList.remove('hidden'); this.src='https://via.placeholder.com/150'; console.error('Image load failed for ${product.name}');"
+                                             class="loading">
                                     </div>
                                     <h3 class="font-semibold">${product.name}</h3>
                                     <p>$${product.price}</p>
@@ -185,15 +220,15 @@
                         </button>
                     </div>
                 `;
-                // 延遲確保圖片加載
                 setTimeout(() => {
                     products.forEach(product => {
                         const img = document.querySelector(`#img-container-${product.id} img`);
                         if (img && !img.complete) {
+                            console.log(`Image for ${product.name} not loaded yet, triggering onerror`);
                             img.onerror();
                         }
                     });
-                }, 2000); // 2秒延遲
+                }, 2000);
             } else if (state.stage === 'survey') {
                 root.innerHTML = `
                     <div class="bg-white p-8 rounded-lg shadow-lg">
@@ -285,7 +320,6 @@
             render();
         }
 
-        // 初始渲染
         useEffect(() => {
             if (state.stage === 'stimulus' && !state.selectedStimulus) {
                 state.selectedStimulus = stimuli[Math.floor(Math.random() * stimuli.length)];
