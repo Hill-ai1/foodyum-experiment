@@ -105,9 +105,9 @@
         };
 
         const stimuli = [
-            { id: 1, text: "Did you know  FoodYum Supermarkets now offers a rewards program that encourages environmentally-friendly shopping  For every plant-based or low-carbon item you add to your cart you will receive one entry into a raffle for Amazon gift cards  The more eco-friendly choices you make the more chances you have to win" },
-            { id: 2, text: "Did you know  Many consumers report feeling guilty or ashamed after purchasing high-carbon-emission foods  At FoodYum Supermarkets we encourage you to reflect on your decisions  Are you making environmentally responsible choices  Are you shopping like a good citizen" },
-            { id: 3, text: "Did you know  Environmentally-friendly shopping isn’t just about products it reflects your personal commitment to society and the planet  If you agree with the value of environmentally-friendly living please let your choices listen to your values  Your shopping behavior at FoodYum Supermarkets is an extension of your good citizenship" }
+            { id: 1, text: "Did you know FoodYum Supermarkets now offers a rewards program that encourages environmentally-friendly shopping. For every plant-based or low-carbon item you add to your cart you will receive one entry into a raffle for Amazon gift cards. The more eco-friendly choices you make the more chances you have to win." },
+            { id: 2, text: "Did you know Many consumers report feeling guilty or ashamed after purchasing high-carbon-emission foods. At FoodYum Supermarkets we encourage you to reflect on your decisions. Are you making environmentally responsible choices? Are you shopping like a good citizen?" },
+            { id: 3, text: "Did you know Environmentally-friendly shopping isn’t just about products it reflects your personal commitment to society and the planet. If you agree with the value of environmentally-friendly living please let your choices listen to your values. Your shopping behavior at FoodYum Supermarkets is an extension of your good citizenship." }
         ];
 
         const products = [
@@ -141,18 +141,14 @@
             if (state.stage === 'stimulus') {
                 if (!state.selectedStimulus) {
                     state.selectedStimulus = stimuli[Math.floor(Math.random() * stimuli.length)];
+                    console.log("Selected Stimulus:", state.selectedStimulus.text);
                 }
                 const sentences = state.selectedStimulus.text
                     .replace(/[\u00A0\u1680\u180E\u2000-\u200B\u202F\u205F\u3000]/g, ' ')
                     .replace(/\s+/g, ' ')
-                    .split(/\s{2,}/)
+                    .split(/[.!?]+(?=\s|$)/)
                     .filter(s => s.trim());
                 console.log("Sentences:", sentences);
-                const root = document.getElementById('root');
-                if (!root) {
-                    console.error("Root element not found!");
-                    return;
-                }
                 root.innerHTML = `
                     <div class="bg-white p-8 rounded-lg shadow-lg text-center">
                         <h1 class="text-2xl font-bold mb-6">FoodYum Supermarket Experiment</h1>
@@ -171,16 +167,16 @@
                         console.error("stimulusTextDiv not found!");
                         return;
                     }
-                    stimulusTextDiv.innerHTML = ''; // 初始化清空
+                    stimulusTextDiv.innerHTML = '';
                     let renderIndex = 0;
                     function renderNextSentence() {
                         if (renderIndex < sentences.length) {
                             setTimeout(() => {
-                                console.log(`Rendering sentence ${renderIndex + 1}: "${sentences[renderIndex]}"`);
+                                console.log(`Rendering sentence ${renderIndex + 1}: "${sentences[renderIndex].trim()}"`);
                                 const p = document.createElement('p');
-                                p.className = 'fade-in'; // 應用 fade-in 類
-                                p.textContent = sentences[renderIndex].trim();
-                                p.style.animationDelay = `${renderIndex * 2}s`; // 2秒間隔
+                                p.className = 'fade-in';
+                                p.textContent = sentences[renderIndex].trim() + (renderIndex < sentences.length - 1 ? '.' : '');
+                                p.style.animationDelay = `${renderIndex * 2}s`;
                                 stimulusTextDiv.appendChild(p);
                                 renderIndex++;
                                 renderNextSentence();
@@ -189,7 +185,7 @@
                             setTimeout(() => {
                                 state.stimulusDisplayed = true;
                                 render();
-                            }, (sentences.length * 2000) + 2000);
+                            }, sentences.length * 2000);
                         }
                     }
                     renderNextSentence();
@@ -323,6 +319,7 @@
         useEffect(() => {
             if (state.stage === 'stimulus' && !state.selectedStimulus) {
                 state.selectedStimulus = stimuli[Math.floor(Math.random() * stimuli.length)];
+                render();
             }
         });
         render();
